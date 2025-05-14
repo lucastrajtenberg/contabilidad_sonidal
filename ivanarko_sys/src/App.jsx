@@ -15,19 +15,44 @@ function App() {
     }));
   };
 
+  const [selectedEnsayo, setSelectedEnsayo] = useState("ensayo");
+
+  const handleEnsayoChange = (e) => {
+    setSelectedEnsayo(e.target.value);
+  };
+
+  const ensayoPrecios = {
+  ensayo: "$10.000",
+  trio: "$9.000",
+  duo: "$7.000",
+  clase: "$6.000",
+  individual: "$5.000",
+  };
+
   const renderVentasGrid = (nombre) => {
     if (nombre === "ensayo") {
       return (
         <table className="mini-tabla">
           <tbody>
-            <tr><td>Ensayo</td><td>$10.000</td><td></td></tr>
-            <tr><td>Ensayo trío</td><td>$9.000</td><td></td></tr>
-            <tr><td>Ensayo dúo</td><td>$7.000</td><td></td></tr>
-            <tr><td>Clase</td><td>$6.000</td><td></td></tr>
-            <tr><td>Práctica individual</td><td>$5.000</td><td></td></tr>
+            <tr>
+            <td>
+  <div className="dropdown-wrapper">
+    <select className="dropdown-ventas" value={selectedEnsayo} onChange={handleEnsayoChange}>
+      <option value="ensayo">Ensayo</option>
+      <option value="trio">Ensayo trío</option>
+      <option value="duo">Ensayo dúo</option>
+      <option value="clase">Clase</option>
+      <option value="individual">Práctica individual</option>
+    </select>
+    <span className="flecha-dropdown">&#9662;</span> {/* flechita ▼ en unicode */}
+  </div>
+</td>
+              <td>{ensayoPrecios[selectedEnsayo]}</td>
+              <td></td>
+            </tr>
           </tbody>
         </table>
-      );
+      );    
     } else if (nombre === "birras") {
       return (
         <table className="mini-tabla">
@@ -35,7 +60,7 @@ function App() {
             <tr><td>Bluemoon</td><td>$4.000</td><td></td></tr>
             <tr><td>Heineken / Grolsch</td><td>$3.500</td><td></td></tr>
             <tr><td>Imperial IPA / Warsteiner / Andes</td><td>$3.000</td><td></td></tr>
-            <tr><td>Miller / Amstel</td><td>$3.000</td><td></td></tr>
+            <tr><td>Miller / Amstel</td><td>$2.500</td><td></td></tr>
           </tbody>
         </table>
       );
