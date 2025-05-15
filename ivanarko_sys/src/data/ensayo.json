@@ -1,0 +1,9 @@
+[
+  { "nombre": "practica individual", "precio": 5000 },
+  { "nombre": "clase", "precio": 6000 },
+  { "nombre": "ensayo duo", "precio": 7000 },
+  { "nombre": "ensayo amigo", "precio": 8000},
+  { "nombre": "ensayo trio", "precio": 9000 },
+  { "nombre": "ensayo", "precio": 10000 }
+  ]
+  

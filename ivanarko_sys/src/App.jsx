@@ -1,5 +1,8 @@
 import { useState } from "react";
 import "./App.css";
+import ensayoData from "./data/ensayo.json";
+import birrasData from "./data/birras.json";
+import alquilerData from "./data/alquiler.json";
 
 function App() {
   const [expandedRows, setExpandedRows] = useState({
@@ -81,7 +84,6 @@ function App() {
     }
   };
   
-
   //render row renderea cada columna teniendo en cuenta si está expandida o colapsada ventas, checkeando el 
 
   const renderRow = (nombre) => (
@@ -101,9 +103,6 @@ function App() {
         {expandedRows[nombre] && renderVentasGrid(nombre)}
       </td>
       <td className="col-total">$0</td>
-      <td className="col-borrar">
-        <button className="boton-borrar">X</button>
-      </td>
     </tr>
   );
 
@@ -124,7 +123,6 @@ function App() {
             </th>
             <th className="col-ventas">Ventas</th>
             <th className="col-total">Total</th>
-            <th className="col-borrar">Borrar</th>
           </tr>
         </thead>
         <tbody>
