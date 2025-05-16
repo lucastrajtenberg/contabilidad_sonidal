@@ -24,14 +24,6 @@ function App() {
     setSelectedEnsayo(e.target.value);
   };
 
-  const ensayoPrecios = {
-  ensayo: "$10.000",
-  trio: "$9.000",
-  duo: "$7.000",
-  clase: "$6.000",
-  individual: "$5.000",
-  };
-
   const renderVentasGrid = (nombre) => {
     if (nombre === "ensayo") {
       return (
@@ -42,15 +34,15 @@ function App() {
   <div className="dropdown-wrapper">
     <select className="dropdown-ventas" value={selectedEnsayo} onChange={handleEnsayoChange}>
       <option value="ensayo">Ensayo</option>
-      <option value="trio">Ensayo trío</option>
-      <option value="duo">Ensayo dúo</option>
+      <option value="ensayo trio">Ensayo trío</option>
+      <option value="ensayo duo">Ensayo dúo</option>
       <option value="clase">Clase</option>
-      <option value="individual">Práctica individual</option>
+      <option value="practica individual">Práctica individual</option>
     </select>
     <span className="flecha-dropdown">&#9662;</span> {/* flechita ▼ en unicode */}
   </div>
 </td>
-              <td>{ensayoPrecios[selectedEnsayo]}</td>
+              <td>${ensayoData.find(item => item.nombre === selectedEnsayo)?.precio || "$0"}</td>
               <td></td>
             </tr>
           </tbody>
@@ -60,10 +52,13 @@ function App() {
       return (
         <table className="mini-tabla">
           <tbody>
-            <tr><td>Bluemoon</td><td>$4.000</td><td></td></tr>
-            <tr><td>Heineken / Grolsch</td><td>$3.500</td><td></td></tr>
-            <tr><td>Imperial IPA / Warsteiner / Andes</td><td>$3.000</td><td></td></tr>
-            <tr><td>Miller / Amstel</td><td>$2.500</td><td></td></tr>
+             {birrasData.map((item, index) => (
+          <tr key={item.nombre}>
+            <td>{item.nombre}</td>
+            <td>${item.precio}</td>
+            <td></td>
+          </tr>
+        ))}
           </tbody>
         </table>
       );
@@ -71,11 +66,13 @@ function App() {
       return (
         <table className="mini-tabla">
           <tbody>
-            <tr><td>Instrumento</td><td>$2.500</td><td></td></tr>
-            <tr><td>Hi-hat</td><td>$1.000</td><td></td></tr>
-            <tr><td>Crash</td><td>$1.000</td><td></td></tr>
-            <tr><td>Ride</td><td>$1.000</td><td></td></tr>
-            <tr><td>Pedal</td><td>$2.500</td><td></td></tr>
+            {alquilerData.map((item, index) => (
+          <tr key={item.nombre}>
+            <td>{item.nombre}</td>
+            <td>${item.precio}</td>
+            <td></td>
+          </tr>
+        ))}
           </tbody>
         </table>
       );
