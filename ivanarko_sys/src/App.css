@@ -73,8 +73,16 @@ body {
 
 .nombre-expandible {
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
   align-items: center;
+}
+
+.nombre-expandible span {
+  padding-left: 10px;
+}
+
+.nombre-expandible .boton-toggle {
+  margin-right: 10px;
 }
 
 .boton-toggle {
@@ -124,12 +132,31 @@ body {
   color: #333;
 }
 
-.qty{
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  font-size:14px;
+/*Flechita cantidad*/
+
+.qty {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 4px; /* espacio entre número y flechas */
 }
+
+.qty-num {
+  min-width: 20px;
+  text-align: center;
+}
+
+.qty-flechas {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.qty-flechas button {
+  padding: 2px 4px;
+  line-height: 1;
+}
+
 .qty button{
   background:none;
   border:none;

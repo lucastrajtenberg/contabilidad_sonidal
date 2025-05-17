@@ -47,8 +47,9 @@ function App() {
   
     
     /** RENDERS */
-    const toggleRow = (key) =>
-      setExpandedRows((p) => ({ ...p, [key]: !p[key] }));
+    
+  const toggleRow = (key) =>
+    setExpandedRows((p) => ({ ...p, [key]: !p[key] }));
     
   const miniFila = (item) => ( //(cada una de las que va en la miniTabla de ventas)
     <tr key={item.nombre}>
@@ -56,9 +57,11 @@ function App() {
       <td>${item.precio}</td>
       <td>
         <div className="qty">
-          <button onClick={() => changeQty(item.nombre, 1)}>▲</button>
-          <span>{cantidades[item.nombre] || 0}</span>
-          <button onClick={() => changeQty(item.nombre, -1)}>▼</button>
+            <span className="qty-num">{cantidades[item.nombre] || 0}</span>
+            <div className="qty-flechas">
+              <button onClick={() => changeQty(item.nombre, 1)}>▲</button>
+              <button onClick={() => changeQty(item.nombre, -1)}>▼</button>
+            </div>
         </div>
       </td>
     </tr>
@@ -91,9 +94,11 @@ function App() {
               <td>${ensayoActual.precio}</td>
               <td>
                 <div className="qty">
-                  <button onClick={() => changeQty(ensayoActual.nombre, 1)}>▲</button>
-                  <span>{cantidades[ensayoActual.nombre] || 0}</span>
-                  <button onClick={() => changeQty(ensayoActual.nombre, -1)}>▼</button>
+                  <span className="qty-num">{cantidades[ensayoActual.nombre] || 0}</span>
+                  <div className="qty-flechas">
+                    <button onClick={() => changeQty(ensayoActual.nombre, 1)}>▲</button>
+                    <button onClick={() => changeQty(ensayoActual.nombre, -1)}>▼</button>
+                  </div>
                 </div>
               </td>
             </tr>
@@ -141,7 +146,7 @@ function App() {
         <div className="nombre-expandible">
           <span>{nombre}</span>
           <button className="boton-toggle" onClick={() => toggleRow(nombre)}>
-            {expandedRows[nombre] ? "x" : "+"}
+            {expandedRows[nombre] ? "▲" : "▼"}
           </button>
         </div>
       </td>
@@ -157,14 +162,9 @@ function App() {
         : null
   }
 </td>
-
-
       <td className="col-total">${totalCat(data)}</td>
     </tr>
   );  
-
-
-  /** */
 
   return (
     <div className="tabla-container">
