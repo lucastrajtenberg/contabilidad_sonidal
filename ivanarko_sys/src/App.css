@@ -123,3 +123,16 @@ body {
   font-size: 14px;
   color: #333;
 }
+
+.qty{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  font-size:14px;
+}
+.qty button{
+  background:none;
+  border:none;
+  cursor:pointer;
+  line-height:12px;
+}
