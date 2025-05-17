@@ -92,7 +92,7 @@ body {
   width: 100%;
 }
 
-.dropdown-ventas {
+.dropdown-ventas, .dropdown-salas {
   appearance: none;
   -webkit-appearance: none;
   -moz-appearance: none;
@@ -110,7 +110,7 @@ body {
   position: relative;
 }
 
-.dropdown-ventas:focus {
+.dropdown-ventas:focus, .dropdown-salas:focus {
   outline: none;
 }
 
