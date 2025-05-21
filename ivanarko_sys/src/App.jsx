@@ -1,8 +1,13 @@
 import { useState } from "react";
 import "./App.css";
+//jsons de data
 import ensayoData from "./data/ensayo.json";
 import birrasData from "./data/birras.json";
 import alquilerData from "./data/alquiler.json";
+//componentes
+import QtyFlechitas from "./components/QtyFlechitas";
+import DropdownSala from "./components/DropdownSala";
+
 
 function App() {
 
@@ -56,13 +61,11 @@ function App() {
       <td>{item.nombre}</td>
       <td>${item.precio}</td>
       <td>
-        <div className="qty">
-            <span className="qty-num">{cantidades[item.nombre] || 0}</span>
-            <div className="qty-flechas">
-              <button onClick={() => changeQty(item.nombre, 1)}>▲</button>
-              <button onClick={() => changeQty(item.nombre, -1)}>▼</button>
-            </div>
-        </div>
+        <QtyFlechitas
+          value={cantidades[item.nombre] || 0}
+          onIncrease={() => changeQty(item.nombre, 1)}
+          onDecrease={() => changeQty(item.nombre, -1)}
+        />
       </td>
     </tr>
   );
@@ -93,13 +96,11 @@ function App() {
               </td>
               <td>${ensayoActual.precio}</td>
               <td>
-                <div className="qty">
-                  <span className="qty-num">{cantidades[ensayoActual.nombre] || 0}</span>
-                  <div className="qty-flechas">
-                    <button onClick={() => changeQty(ensayoActual.nombre, 1)}>▲</button>
-                    <button onClick={() => changeQty(ensayoActual.nombre, -1)}>▼</button>
-                  </div>
-                </div>
+                <QtyFlechitas
+                  value={cantidades[ensayoActual.nombre] || 0}
+                  onIncrease={() => changeQty(ensayoActual.nombre, 1)}
+                  onDecrease={() => changeQty(ensayoActual.nombre, -1)}
+                />
               </td>
             </tr>
           </tbody>
@@ -126,14 +127,7 @@ function App() {
         <form onSubmit={(e) => e.preventDefault()} className="form-nombre">
           <input type="text" placeholder="nombre" className="input-nombre" />
         </form>
-        <div className="dropdown-wrapper">
-          <select className="dropdown-salas" value={selectedSala} onChange={handleSalaChange}>
-            <option value="1">Sala 1</option>
-            <option value="2">Sala 2</option>
-            <option value="3">Sala 3</option>
-          </select>
-          <span className="flecha-dropdown">&#9662;</span>
-        </div>
+        <DropdownSala value={selectedSala} onChange={handleSalaChange} />
       </th>
       <th className="col-ventas">Ventas</th>
       <th className="col-total">Total</th>
