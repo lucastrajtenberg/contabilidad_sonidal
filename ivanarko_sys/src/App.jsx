@@ -7,7 +7,7 @@ import alquilerData from "./data/alquiler.json";
 //componentes
 import QtyFlechitas from "./components/QtyFlechitas";
 import DropdownSala from "./components/DropdownSala";
-
+import MinitablaVentas from "./components/MinitablaVentas";
 
 function App() {
 
@@ -70,56 +70,18 @@ function App() {
     </tr>
   );
 
-  const renderVentasGrid = (nombre) => {
-    if (nombre === "ensayo") {
-      const ensayoActual = ensayoData.find(
-        (i) => i.nombre.toLowerCase() == selectedEnsayo
-      ) || ensayoData[0];
-
-      return (
-        <table className="mini-tabla">
-          <tbody>
-            <tr>
-              <td>
-                <div className="dropdown-wrapper">
-                  <select className="dropdown-ventas"
-                          value={selectedEnsayo}
-                          onChange={handleEnsayoChange}>
-                    {ensayoData.map(({ nombre }) => (
-                      <option key={nombre} value={nombre}>
-                        {nombre.charAt(0).toUpperCase() + nombre.slice(1)}
-                      </option>
-                    ))}
-                  </select>
-                  <span className="flecha-dropdown">&#9662;</span>
-                </div>
-              </td>
-              <td>${ensayoActual.precio}</td>
-              <td>
-                <QtyFlechitas
-                  value={cantidades[ensayoActual.nombre] || 0}
-                  onIncrease={() => changeQty(ensayoActual.nombre, 1)}
-                  onDecrease={() => changeQty(ensayoActual.nombre, -1)}
-                />
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      );
-    }
-
-    if (nombre === "birras")
-      return (
-        <table className="mini-tabla"><tbody>{birrasData.map(miniFila)}</tbody></table>
-      );
-
-    if (nombre === "alquiler")
-      return (
-        <table className="mini-tabla"><tbody>{alquilerData.map(miniFila)}</tbody></table>
-      );
-
-    return null;
-  };
+  const renderVentasGrid = (key, data) => (
+    <MinitablaVentas
+      categoria={key}
+      data={data}
+      cantidades={cantidades}
+      changeQty={changeQty}
+      /* props exclusivos de “ensayo” */
+      selectedEnsayo={selectedEnsayo}
+      onEnsayoChange={handleEnsayoChange}
+    />
+  );
+  
 
   const renderHead = () => (
     <tr>
@@ -145,16 +107,28 @@ function App() {
         </div>
       </td>
       <td className="col-ventas">
-  {expandedRows[nombre]
-    ? renderVentasGrid(nombre)
-    : nombre === "ensayo"
-      ? cantidades[selectedEnsayo] > 0
-        ? <span className="resumen-colapsado">{cantidades[selectedEnsayo]} {selectedEnsayo.charAt(0).toUpperCase() + selectedEnsayo.slice(1)}</span>
-        : null
-      : resumenConsumos(data)
-        ? <span className="resumen-colapsado">{resumenConsumos(data)}</span>
-        : null
-  }
+      {expandedRows[nombre] ? (
+  <MinitablaVentas
+    categoria={nombre}
+    data={data}
+    cantidades={cantidades}
+    changeQty={changeQty}
+    selectedEnsayo={selectedEnsayo}
+    onEnsayoChange={handleEnsayoChange}
+  />
+) : (
+  nombre === "ensayo"
+    ? cantidades[selectedEnsayo] > 0 && (
+        <span className="resumen-colapsado">
+          {cantidades[selectedEnsayo]}{" "}
+          {selectedEnsayo.charAt(0).toUpperCase() + selectedEnsayo.slice(1)}
+        </span>
+      )
+    : resumenConsumos(data) && (
+        <span className="resumen-colapsado">{resumenConsumos(data)}</span>
+      )
+)}
+
 </td>
       <td className="col-total">${totalCat(data)}</td>
     </tr>
