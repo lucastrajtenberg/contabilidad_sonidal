@@ -6,6 +6,8 @@ export default function App() {
   const [clientes, setClientes] = useState([]);        // array de IDs únicos
   const [nombres,  setNombres]  = useState({});        // { id: nombre }
   const [totales,  setTotales]  = useState({});        // { id: total }
+  const [salas, setSalas] = useState({});
+
 
   /* ---------- helpers ---------- */
   const addCliente = () => {
@@ -59,6 +61,15 @@ export default function App() {
   ))}
 </ul>
 
+  <div className="border-t border-gray-300 mt-2 p-2 pl-4 text-left text-sm">
+    <div>Total del día:</div>
+    <div className="font-mono text-lg font-semibold">
+      $
+      {clientes
+        .reduce((acc, id) => acc + (totales[id] || 0), 0)
+        .toFixed(0)}
+    </div>
+  </div>
       </aside>
 
       {/* PANEL PRINCIPAL 80 % */}
