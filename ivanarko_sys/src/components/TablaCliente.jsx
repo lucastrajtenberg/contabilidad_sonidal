@@ -20,7 +20,16 @@ export default function TablaCliente() {
   const [cantidades, setCantidades] = useState({});
 
   /** HANDLERS */
-  const handleEnsayoChange = (e) => setSelectedEnsayo(e.target.value);
+  const handleEnsayoChange = (e) => {
+  const nuevoEnsayo = e.target.value;
+  setCantidades((prev) => ({
+    ...prev,
+    [selectedEnsayo]: 0,      // resetea el anterior
+    [nuevoEnsayo]: prev[nuevoEnsayo] || 0, // asegura que exista el nuevo
+  }));
+  setSelectedEnsayo(nuevoEnsayo);
+};
+
   const handleSalaChange  = (e) => setSelectedSala(e.target.value);
   const toggleRow = (key) =>
     setExpandedRows((p) => ({ ...p, [key]: !p[key] }));
