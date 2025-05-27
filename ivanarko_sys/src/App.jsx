@@ -38,28 +38,27 @@ export default function App() {
   return (
     <div className="flex h-screen">
       {/* NAVBAR 20 % */}
-      <aside className="w-[20%] p-4 bg-gray-100 flex flex-col gap-4">
+      <aside className="w-[20%] p-4 bg-gray-200 flex flex-col gap-4 ">
         {/* BANNER SUPERIOR */}
         <div className="bg-black text-white p-4 rounded-md">
-  <div className="flex items-center">
-    <img
-      src="src/images/sonidal logo icon.png"
-      alt="Logo"
-      className="w-[100px] h-[100px] object-cover mr-4"
-    />
-    <div className="flex flex-col justify-center">
-      <h1 className="text-3xl font-bold">Sonidal Studio</h1>
-      <span className="text-sm text-gray-400">App de contabilidad</span>
-    </div>
-  </div>
-</div>
-
-
+          <div className="flex items-center">
+            <img
+              src="src/images/sonidal logo icon.png"
+              alt="Logo"
+              className="w-[100px] h-[100px] object-cover mr-4"
+            />
+            <div className="flex flex-col justify-center">
+              <h1 className="text-3xl font-bold">Sonidal Studio</h1>
+              <span className="text-sm text-gray-400">App de contabilidad</span>
+            </div>
+          </div>
+        </div>
+      
         <button
           onClick={addCliente}
-          className="px-3 py-2 bg-blue-600 text-white rounded-md"
+          className="px-3 py-2 bg-black text-white rounded-md"
         >
-          ➕ Añadir cliente
+          + Añadir cliente
         </button>
 
         <ul className="flex-1 overflow-y-auto divide-y">
@@ -96,7 +95,7 @@ export default function App() {
       </aside>
 
       {/* PANEL PRINCIPAL 80 % */}
-      <main className="w-[80%] p-4 space-y-8 overflow-auto">
+      <main className="w-[80%] p-4 space-y-8 overflow-auto bg-linear-to-r">
         {clientes.map((id) => (
           <TablaCliente
             key={id}

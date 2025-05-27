@@ -69,13 +69,17 @@ export default function TablaCliente({ onNameChange, onTotalChange }) {
     onNameChange && onNameChange(val);
   };
 
+  const capitalizeFirst = (str) =>
+  str.charAt(0).toUpperCase() + str.slice(1);
+
+
   const renderHead = () => (
     <tr>
       <th className="col-nombre">
         <form onSubmit={(e) => e.preventDefault()} className="form-nombre">
           <input
             type="text"
-            placeholder="nombre"
+            placeholder="Nombre"
             className="input-nombre"
             value={clienteName}
             onChange={handleNameInput}
@@ -92,7 +96,7 @@ export default function TablaCliente({ onNameChange, onTotalChange }) {
     <tr key={nombre}>
       <td className="col-nombre">
         <div className="nombre-expandible">
-          <span>{nombre}</span>
+          <span>{capitalizeFirst(nombre)}</span>
           <button className="boton-toggle" onClick={() => toggleRow(nombre)}>
             {expandedRows[nombre] ? "▲" : "▼"}
           </button>
@@ -128,8 +132,8 @@ export default function TablaCliente({ onNameChange, onTotalChange }) {
 
   return (
     <div className="tabla-container mb-6">
-      <table className="tabla w-full border border-gray-300">
-        <thead>{renderHead()}</thead>
+      <table className="tabla w-full border border-gray-300 ">
+        <thead className="text-white-700 uppercase bg-gray-50 dark:bg-black dark:text-white">{renderHead()}</thead>
         <tbody>
           {renderRow("ensayo", ensayoData)}
           {renderRow("birras", birrasData)}
