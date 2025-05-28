@@ -4,12 +4,13 @@ import preciosData from "../data/precios.json"
 import DropdownSala from "./DropdownSala";
 import MinitablaVentas from "./MinitablaVentas";
 
-export default function TablaCliente({ onNameChange, onTotalChange }) {
+export default function TablaCliente({fecha, onNameChange, onTotalChange }) {
   const [expandedRows, setExpandedRows] = useState({
     ensayo: true,
     birras: false,
     alquiler: false,
   });
+  const [clienteFecha, setClienteFecha] = useState(fecha);
   const [selectedEnsayo, setSelectedEnsayo] = useState("ensayo");
   const [selectedSala, setSelectedSala] = useState("1");
   const [clienteName, setClienteName] = useState("");
@@ -153,6 +154,7 @@ export default function TablaCliente({ onNameChange, onTotalChange }) {
       <pre>{JSON.stringify(clienteName, null, 2)}</pre>
       <pre>{JSON.stringify(cantidades, null, 2)}</pre>
       <pre>{JSON.stringify(selectedSala, null, 2)}</pre>
+      <pre>{JSON.stringify(clienteFecha, null, 2)}</pre>
     </div>
   );
 }
