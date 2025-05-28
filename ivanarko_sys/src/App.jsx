@@ -41,7 +41,7 @@ export default function App() {
     <LocalizationProvider dateAdapter={AdapterDayjs}>
       <div className="flex h-screen">
         {/* NAVBAR */}
-        <aside className="w-[20%] p-4 bg-gray-200 flex flex-col gap-4 ">
+        <aside className="w-[20%] min-w-[280px] p-4 bg-gray-200 flex flex-col gap-4">
           <div className="bg-black text-white p-4 rounded-md">
             <div className="flex items-center">
               <img
