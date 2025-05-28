@@ -1,8 +1,6 @@
 import { useState, useEffect } from "react";
 import "./TablaCliente.css";
-import ensayoData from "../data/ensayo.json";
-import birrasData from "../data/birras.json";
-import alquilerData from "../data/alquiler.json";
+import preciosData from "../data/precios.json"
 import DropdownSala from "./DropdownSala";
 import MinitablaVentas from "./MinitablaVentas";
 
@@ -14,44 +12,59 @@ export default function TablaCliente({ onNameChange, onTotalChange }) {
   });
   const [selectedEnsayo, setSelectedEnsayo] = useState("ensayo");
   const [selectedSala, setSelectedSala] = useState("1");
-  const [cantidades, setCantidades] = useState({});
   const [clienteName, setClienteName] = useState("");
+  const [cantidades, setCantidades] = useState({ ensayo: {}, birras: {}, alquiler: {}});
+
 
   const handleEnsayoChange = (e) => {
-    const nuevoEnsayo = e.target.value;
-    setCantidades({ [nuevoEnsayo]: cantidades[nuevoEnsayo] || 0 });
-    setSelectedEnsayo(nuevoEnsayo);
-  };
+  const nuevoEnsayo = e.target.value;
+
+  setCantidades((prev) => ({
+    ...prev,
+    ensayo: {
+      [nuevoEnsayo]: prev.ensayo[nuevoEnsayo] || 0
+    }
+  }));
+  setSelectedEnsayo(nuevoEnsayo);
+};
+
 
   const handleSalaChange = (e) => setSelectedSala(e.target.value);
   const toggleRow = (key) =>
     setExpandedRows((p) => ({ ...p, [key]: !p[key] }));
 
   const precioDe = (nombre) =>
-    [...ensayoData, ...birrasData, ...alquilerData]
+    [...preciosData]
       .find((i) => i.nombre === nombre)?.precio || 0;
 
-  const changeQty = (nombre, delta) =>
-    setCantidades((prev) => ({
-      ...prev,
-      [nombre]: Math.max(0, (prev[nombre] || 0) + delta),
-    }));
+  const changeQty = (categoria, nombre, delta) => {
+  setCantidades((prev) => ({
+    ...prev,
+    [categoria]: {
+      ...prev[categoria],
+      [nombre]: Math.max(0, (prev[categoria][nombre] || 0) + delta)
+    }
+  }));
+};
 
-  const totalCat = (lista) => //multiplica todos los consumos posibles * cantidades consumidas
-    lista.reduce(
-      (acc, item) =>
-        acc + precioDe(item.nombre) * (cantidades[item.nombre] || 0),
-      0
-    );
 
-  const resumenConsumos = (lista) => //muestra el resumen cuando contraes las filas
-    lista
-      .filter((i) => cantidades[i.nombre] > 0)
-      .map((i) => `${cantidades[i.nombre]} ${i.nombre}`)
-      .join(", ");
+  const totalCat = (lista) =>
+  lista.reduce((acc, item) => {
+    const cat = item.categoria;
+    const nombre = item.nombre;
+    const cantidad = (cantidades[cat]?.[nombre]) || 0;
+    return acc + precioDe(nombre) * cantidad;
+  }, 0);
+
+  const resumenConsumos = (lista) =>
+  lista
+    .filter(i => (cantidades[i.categoria]?.[i.nombre] || 0) > 0)
+    .map(i => `${cantidades[i.categoria][i.nombre]} ${i.nombre}`)
+    .join(", ");
+
 
   const totalGeneral = 
-    totalCat(ensayoData) + totalCat(birrasData) + totalCat(alquilerData);
+    totalCat(preciosData);
 
   // Efecto para actualizar total al padre
   useEffect(() => {
@@ -110,9 +123,9 @@ export default function TablaCliente({ onNameChange, onTotalChange }) {
             onEnsayoChange={handleEnsayoChange}
           />
         ) : nombre === "ensayo" ? ( //si la categoria esta colapsada y el nombre es ensayo
-          cantidades[selectedEnsayo] > 0 && (
+          cantidades.ensayo[selectedEnsayo] > 0 && (
             <span className="resumen-colapsado">
-              {cantidades[selectedEnsayo]}{" "}
+              {cantidades.ensayo[selectedEnsayo]}{" "}
               {selectedEnsayo.charAt(0).toUpperCase() +
                 selectedEnsayo.slice(1)}
             </span>
@@ -131,9 +144,10 @@ export default function TablaCliente({ onNameChange, onTotalChange }) {
       <table className="tabla w-full border border-gray-300 ">
         <thead className="text-white-700 uppercase bg-gray-50 dark:bg-black dark:text-white">{renderHead()}</thead>
         <tbody>
-          {renderRow("ensayo", ensayoData)}
-          {renderRow("birras", birrasData)}
-          {renderRow("alquiler", alquilerData)}
+          {renderRow("ensayo", preciosData.filter(p => p.categoria === "ensayo"))}
+          {renderRow("birras", preciosData.filter(p => p.categoria === "birras"))}
+          {renderRow("alquiler", preciosData.filter(p => p.categoria === "alquiler"))}
+
         </tbody>
       </table>
       <pre>{JSON.stringify(clienteName, null, 2)}</pre>

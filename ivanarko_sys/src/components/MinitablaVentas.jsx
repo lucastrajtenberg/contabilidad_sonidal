@@ -3,8 +3,8 @@ import QtyFlechitas from "./QtyFlechitas";
 export default function MinitablaVentas({
   categoria,          // "ensayo" | "birras" | "alquiler"
   data,               // array con { nombre, precio }
-  cantidades,         // objeto: { [nombre]: cantidad }
-  changeQty,          // (nombre, cantidad) => void
+  cantidades,         // objeto: { ensayo: {}, birras: {}, alquiler: {} }
+  changeQty,          // (categoria, nombre, delta) => void
   // Sólo para la categoría “ensayo”:
   selectedEnsayo,
   onEnsayoChange,
@@ -16,9 +16,9 @@ export default function MinitablaVentas({
       <td>${item.precio}</td>
       <td>
         <QtyFlechitas
-          value={cantidades[item.nombre] || 0}
-          onIncrease={() => changeQty(item.nombre, 1)}
-          onDecrease={() => changeQty(item.nombre, -1)}
+          value={cantidades[categoria]?.[item.nombre] || 0}
+          onIncrease={() => changeQty(categoria, item.nombre, 1)}
+          onDecrease={() => changeQty(categoria, item.nombre, -1)}
         />
       </td>
     </tr>
@@ -52,9 +52,9 @@ export default function MinitablaVentas({
             <td>${ensayoActual.precio}</td>
             <td>
               <QtyFlechitas
-                value={cantidades[ensayoActual.nombre] || 0}
-                onIncrease={() => changeQty(ensayoActual.nombre, 1)}
-                onDecrease={() => changeQty(ensayoActual.nombre, -1)}
+                value={cantidades[categoria]?.[ensayoActual.nombre] || 0}
+                onIncrease={() => changeQty(categoria, ensayoActual.nombre, 1)}
+                onDecrease={() => changeQty(categoria, ensayoActual.nombre, -1)}
               />
             </td>
           </tr>

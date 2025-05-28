@@ -1,0 +1,23 @@
+[
+  { "nombre": "Instrumento", "precio": 2500, "categoria": "alquiler" },
+  { "nombre": "Hi-hat", "precio": 1000, "categoria": "alquiler" },
+  { "nombre": "Crash", "precio": 1000, "categoria": "alquiler" },
+  { "nombre": "Ride", "precio": 1000, "categoria": "alquiler" },
+  { "nombre": "Pedal", "precio": 2500, "categoria": "alquiler" },
+
+  { "nombre": "ensayo", "precio": 10000, "categoria": "ensayo" },
+  { "nombre": "ensayo duo", "precio": 7000, "categoria": "ensayo" },
+  { "nombre": "ensayo amigo", "precio": 8000, "categoria": "ensayo" },
+  { "nombre": "ensayo trio", "precio": 9000, "categoria": "ensayo" },
+  { "nombre": "practica individual", "precio": 5000, "categoria": "ensayo" },
+  { "nombre": "clase", "precio": 6000, "categoria": "ensayo" },
+
+  { "nombre": "Miller", "precio": 2500, "categoria": "birras" },
+  { "nombre": "Amstel", "precio": 2500, "categoria": "birras" },
+  { "nombre": "Imperial IPA", "precio": 3000, "categoria": "birras" },
+  { "nombre": "Warsteiner", "precio": 3000, "categoria": "birras" },
+  { "nombre": "Andes", "precio": 3000, "categoria": "birras" },
+  { "nombre": "Heineken", "precio": 3500, "categoria": "birras" },
+  { "nombre": "Grolsch", "precio": 3500, "categoria": "birras" },
+  { "nombre": "Bluemoon", "precio": 4000, "categoria": "birras" }
+]
