@@ -19,11 +19,7 @@ export default function TablaCliente({ onNameChange, onTotalChange }) {
 
   const handleEnsayoChange = (e) => {
     const nuevoEnsayo = e.target.value;
-    setCantidades((prev) => ({
-      ...prev,
-      [selectedEnsayo]: 0,
-      [nuevoEnsayo]: prev[nuevoEnsayo] || 0,
-    }));
+    setCantidades({ [nuevoEnsayo]: cantidades[nuevoEnsayo] || 0 });
     setSelectedEnsayo(nuevoEnsayo);
   };
 
@@ -41,20 +37,20 @@ export default function TablaCliente({ onNameChange, onTotalChange }) {
       [nombre]: Math.max(0, (prev[nombre] || 0) + delta),
     }));
 
-  const totalCat = (lista) =>
+  const totalCat = (lista) => //multiplica todos los consumos posibles * cantidades consumidas
     lista.reduce(
       (acc, item) =>
         acc + precioDe(item.nombre) * (cantidades[item.nombre] || 0),
       0
     );
 
-  const resumenConsumos = (lista) =>
+  const resumenConsumos = (lista) => //muestra el resumen cuando contraes las filas
     lista
       .filter((i) => cantidades[i.nombre] > 0)
       .map((i) => `${cantidades[i.nombre]} ${i.nombre}`)
       .join(", ");
 
-  const totalGeneral =
+  const totalGeneral = 
     totalCat(ensayoData) + totalCat(birrasData) + totalCat(alquilerData);
 
   // Efecto para actualizar total al padre
@@ -104,16 +100,16 @@ export default function TablaCliente({ onNameChange, onTotalChange }) {
       </td>
 
       <td className="col-ventas">
-        {expandedRows[nombre] ? (
+        {expandedRows[nombre] ? ( //si la categoria no esta colapsada :
           <MinitablaVentas
             categoria={nombre}
             data={data}
             cantidades={cantidades}
-            changeQty={changeQty}
+            changeQty={changeQty} //cambia cantidades dentro de TablaCliente, respecto de lo clickeado en las flechitas de MinitablaVentas
             selectedEnsayo={selectedEnsayo}
             onEnsayoChange={handleEnsayoChange}
           />
-        ) : nombre === "ensayo" ? (
+        ) : nombre === "ensayo" ? ( //si la categoria esta colapsada y el nombre es ensayo
           cantidades[selectedEnsayo] > 0 && (
             <span className="resumen-colapsado">
               {cantidades[selectedEnsayo]}{" "}
@@ -121,7 +117,7 @@ export default function TablaCliente({ onNameChange, onTotalChange }) {
                 selectedEnsayo.slice(1)}
             </span>
           )
-        ) : resumenConsumos(data) ? (
+        ) : resumenConsumos(data) ? ( //si la categoria esta colapsada y el nombre != de ensayo
           <span className="resumen-colapsado">{resumenConsumos(data)}</span>
         ) : null}
       </td>
@@ -140,6 +136,9 @@ export default function TablaCliente({ onNameChange, onTotalChange }) {
           {renderRow("alquiler", alquilerData)}
         </tbody>
       </table>
+      <pre>{JSON.stringify(clienteName, null, 2)}</pre>
+      <pre>{JSON.stringify(cantidades, null, 2)}</pre>
+      <pre>{JSON.stringify(selectedSala, null, 2)}</pre>
     </div>
   );
 }

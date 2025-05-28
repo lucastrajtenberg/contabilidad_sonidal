@@ -6,7 +6,6 @@ export default function App() {
   const [clientes, setClientes] = useState([]); // array de IDs únicos
   const [nombres, setNombres] = useState({}); // { id: nombre }
   const [totales, setTotales] = useState({}); // { id: total }
-  const [salas, setSalas] = useState({});
 
   /* ---------- helpers ---------- */
   const addCliente = () => {
