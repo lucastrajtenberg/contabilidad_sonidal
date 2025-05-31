@@ -40,9 +40,9 @@ export default function App() {
 
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale="es">
-      <div className="flex h-screen">
+      <div className="flex h-full overflow-y-auto">
         {/* NAVBAR */}
-        <aside className="w-full max-w-[400px] p-4 bg-gray-200 flex flex-col gap-4">
+        <aside className="w-full max-w-[400px] h-full p-4 bg-grey-600 flex flex-col gap-4">
           <div className="bg-black text-white p-4 rounded-md">
             <div className="flex items-center">
               <img
@@ -60,7 +60,6 @@ export default function App() {
           <DatePicker
             label="Fecha"
             value={fechaSeleccionada}
-            
             onChange={(newDate) => setFechaSeleccionada(newDate)}
           />
 

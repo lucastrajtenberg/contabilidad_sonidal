@@ -3,6 +3,7 @@ import "./TablaCliente.css";
 import preciosData from "../data/precios.json"
 import DropdownSala from "./DropdownSala";
 import MinitablaVentas from "./MinitablaVentas";
+import dayjs from "dayjs";
 
 export default function TablaCliente({fecha, onNameChange, onTotalChange }) {
   const [expandedRows, setExpandedRows] = useState({
@@ -154,7 +155,7 @@ export default function TablaCliente({fecha, onNameChange, onTotalChange }) {
       <pre>{JSON.stringify(clienteName, null, 2)}</pre>
       <pre>{JSON.stringify(cantidades, null, 2)}</pre>
       <pre>sala: {JSON.stringify(selectedSala, null, 2)}</pre>
-      <pre>fecha: {JSON.stringify(clienteFecha, null, 2)}</pre>
+      <pre>fecha: {JSON.stringify(dayjs(clienteFecha).format('DD/MM/YY'), null, 2)}</pre>
     </div>
   );
 }
