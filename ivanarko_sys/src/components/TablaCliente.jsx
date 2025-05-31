@@ -153,8 +153,8 @@ export default function TablaCliente({fecha, onNameChange, onTotalChange }) {
       </table>
       <pre>{JSON.stringify(clienteName, null, 2)}</pre>
       <pre>{JSON.stringify(cantidades, null, 2)}</pre>
-      <pre>{JSON.stringify(selectedSala, null, 2)}</pre>
-      <pre>{JSON.stringify(clienteFecha, null, 2)}</pre>
+      <pre>sala: {JSON.stringify(selectedSala, null, 2)}</pre>
+      <pre>fecha: {JSON.stringify(clienteFecha, null, 2)}</pre>
     </div>
   );
 }

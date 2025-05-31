@@ -4,6 +4,7 @@ import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import dayjs from "dayjs";
+import 'dayjs/locale/es';
 
 export default function App() {
   /* ---------- estado global ---------- */
@@ -38,10 +39,10 @@ export default function App() {
     setTotales((p) => ({ ...p, [id]: total }));
 
   return (
-    <LocalizationProvider dateAdapter={AdapterDayjs}>
+    <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale="es">
       <div className="flex h-screen">
         {/* NAVBAR */}
-        <aside className="w-[20%] min-w-[280px] p-4 bg-gray-200 flex flex-col gap-4">
+        <aside className="w-full max-w-[400px] p-4 bg-gray-200 flex flex-col gap-4">
           <div className="bg-black text-white p-4 rounded-md">
             <div className="flex items-center">
               <img
@@ -50,7 +51,7 @@ export default function App() {
                 className="w-[100px] h-[100px] object-cover mr-4"
               />
               <div>
-                <h1 className="text-3xl font-bold">Sonidal Studio</h1>
+                <h1 className="text-3xl font-bold">Sonidal Estudio</h1>
                 <span className="text-sm text-gray-400">App de contabilidad</span>
               </div>
             </div>
@@ -59,6 +60,7 @@ export default function App() {
           <DatePicker
             label="Fecha"
             value={fechaSeleccionada}
+            
             onChange={(newDate) => setFechaSeleccionada(newDate)}
           />
 
