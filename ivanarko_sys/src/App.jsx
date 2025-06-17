@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import TablaCliente from './components/TablaCliente';
+import BotonLock from './components/BotonLock'
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
@@ -127,6 +128,8 @@ export default function App() {
                 </li>
               ))}
           </ul>
+
+          <BotonLock></BotonLock>
 
           <div className='border-t border-gray-300 mt-2 p-2 pl-4 text-left text-sm'>
             <div>Total del día:</div>

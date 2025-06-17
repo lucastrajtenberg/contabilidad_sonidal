@@ -15,6 +15,8 @@ const loadClients = () => {
 const useStore = create(set => ({
   clients: loadClients(),
   clienteFecha: dayjs(),
+  lockContra: "sonidal123",
+  lockState: false,
   createNewClient: (clientId, fecha) =>
     set(state => {
       if (state.clients[clientId]) return state;
@@ -113,9 +115,18 @@ const useStore = create(set => ({
       }
     }));
   },
-  setClienteFecha: newDate => set(() => ({ clienteFecha: newDate }))
-  // clients: [],
-  // setClients: totalClients => set(() => ({ clients: totalClients }))
+  setClienteFecha: newDate => set(() => ({ clienteFecha: newDate })),
+  
+  verificarContra: (input) =>
+    set((state) => ({
+      
+      lockState: input === state.lockContra,
+    })),
+
+  bloquear: () =>
+    set(() => ({
+      lockState: false,
+    }))
 }));
 
 /*
