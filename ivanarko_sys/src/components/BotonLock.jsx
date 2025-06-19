@@ -1,29 +1,30 @@
 import { useState } from "react";
 import useStore from '../store/useStore';
 import DesbloqueoModal from "./DesbloqueoModal";
+import LockIcon from '@mui/icons-material/Lock';
+import LockOpenIcon from '@mui/icons-material/LockOpen';
 
 function MiComponente() {
   const [mostrarModal, setMostrarModal] = useState(false);
-  const desbloqueado = useStore((s) => s.modoDesbloqueado);
+  const lockState = useStore((s) => s.lockState);
+  const bloquear = useStore((s) => s.bloquear);
 
   return (
-    <div>
-      <button onClick={() => setMostrarModal(true)}>Desbloquear opciones</button>
-
+    <div className="flex pl-2">
+      <p>Bloquear Grilla</p>
+      <button className="flex pl-2" onClick={() => {
+        console.log(lockState)
+        if (lockState) {
+          setMostrarModal(false)
+          bloquear();
+        } 
+        else setMostrarModal(true)
+        }}>
+          {!lockState ? <LockIcon></LockIcon> : <LockOpenIcon></LockOpenIcon>}</button>
       {mostrarModal && (
         <DesbloqueoModal onClose={() => setMostrarModal(false)} />
-      )}
-
-      <p>Estado de desbloqueo: {desbloqueado ? "✅ Habilitado" : "❌ Bloqueado"}</p>
-
-      {desbloqueado && (
-        <div>
-          <h4>Zona desbloqueada</h4>
-          {/* más componentes o funciones que ahora están disponibles */}
-        </div>
       )}
     </div>
   );
 }
-
 export default MiComponente;

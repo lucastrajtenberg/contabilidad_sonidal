@@ -1,13 +1,25 @@
 import { useState } from "react";
 import useStore from '../store/useStore';
+import { TextField } from "@mui/material";
 
 function DesbloqueoModal({ onClose }) {
   const [input, setInput] = useState("");
-  const verificarContra = useStore((s) => s.verificarContra);
+  const lockContra = useStore((s) => s.lockContra);
+  const lockState = useStore((s) => s.lockState);
+  const bloquear = useStore((s) => s.bloquear);
+  const desbloquear = useStore((s) => s.desbloquear);
+
+  const [contraIncorrecta, setContraIncorrecta] = useState(false);
 
   const handleSubmit = () => {
-    verificarContra(input);
-    onClose(); // cerrar el modal
+    if (input !== lockContra){
+      setContraIncorrecta(true);
+      bloquear();
+      return;
+    }
+      desbloquear();
+    setContraIncorrecta(false);
+    onClose()
   };
 
   return (
@@ -17,14 +29,14 @@ function DesbloqueoModal({ onClose }) {
       justifyContent: "center", alignItems: "center"
     }}>
       <div style={{ background: "#fff", padding: "20px", borderRadius: "8px" }}>
-        <h3>Ingresar contraseña</h3>
-        <input
+        <TextField error={contraIncorrecta} id="outlined-basic" label="Contraseña" variant="outlined"
           type="password"
           value={input}
+          helperText={contraIncorrecta&&"Contraseña incorrecta"}
           onChange={(e) => setInput(e.target.value)}
         />
         <br /><br />
-        <button onClick={handleSubmit}>Desbloquear</button>
+        <button onClick={handleSubmit}>Ingresar</button>
         <button onClick={onClose} style={{ marginLeft: "10px" }}>Cancelar</button>
       </div>
     </div>

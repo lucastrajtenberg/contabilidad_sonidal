@@ -117,10 +117,9 @@ const useStore = create(set => ({
   },
   setClienteFecha: newDate => set(() => ({ clienteFecha: newDate })),
   
-  verificarContra: (input) =>
-    set((state) => ({
-      
-      lockState: input === state.lockContra,
+  desbloquear: () =>
+    set(() => ({
+     lockState: true,
     })),
 
   bloquear: () =>

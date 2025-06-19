@@ -10,6 +10,8 @@ const LOCAL_STORAGE_KEY = 'clientes-store';
 
 export default function App() {
   /* ---------- estado global ---------- */
+  
+  const lockState = useStore((s) => s.lockState);
   const [clientes, setClientes] = useState([]);
   const [nombres, setNombres] = useState({});
   const [totales, setTotales] = useState({});
@@ -25,7 +27,7 @@ export default function App() {
 
   useEffect(() => {
     try {
-      if (Object.values(clients).length > 0) {
+      if (Object.values(clients).length >= 0) {
         console.log('GUARDANDO');
         localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(clients));
       }
@@ -92,6 +94,7 @@ export default function App() {
 
           <button
             onClick={addCliente}
+            disabled={!lockState}
             className='px-3 py-2 bg-black text-white rounded-md'
           >
             + Añadir cliente
