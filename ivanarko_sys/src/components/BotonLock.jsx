@@ -11,7 +11,8 @@ function MiComponente() {
 
   return (
     <div className="flex pl-2">
-      <p>Bloquear Grilla</p>
+      {lockState&&<p>Bloquear grilla</p>}
+      {!lockState&&<p>Desbloquear grilla</p>}
       <button className="flex pl-2" onClick={() => {
         console.log(lockState)
         if (lockState) {

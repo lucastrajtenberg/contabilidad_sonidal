@@ -1,6 +1,7 @@
 import { useState } from "react";
 import useStore from '../store/useStore';
 import { TextField } from "@mui/material";
+import { Button } from '@mui/material';
 
 function DesbloqueoModal({ onClose }) {
   const [input, setInput] = useState("");
@@ -36,8 +37,8 @@ function DesbloqueoModal({ onClose }) {
           onChange={(e) => setInput(e.target.value)}
         />
         <br /><br />
-        <button onClick={handleSubmit}>Ingresar</button>
-        <button onClick={onClose} style={{ marginLeft: "10px" }}>Cancelar</button>
+        <Button onClick={handleSubmit} variant="contained">Ingresar</Button>
+        <Button onClick={onClose} style={{ marginLeft: "10px" }} variant="outlined">Cancelar</Button>
       </div>
     </div>
   );
