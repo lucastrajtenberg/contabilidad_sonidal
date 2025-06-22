@@ -65,9 +65,11 @@ export default function App() {
   const handleTotalChange = (id, total) =>
     setTotales(p => ({ ...p, [id]: total }));
 
+
+
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale='es'>
-      <div className='flex h-full overflow-y-auto'>
+      <div className='flex h-full overflow-y-auto '>
         {/* NAVBAR */}
         <aside className='w-full max-w-[400px] h-full p-4 bg-grey-600 flex flex-col gap-4'>
           <div className='bg-black text-white p-4 rounded-md'>
@@ -146,6 +148,11 @@ export default function App() {
         </aside>
 
         {/* PANEL PRINCIPAL */}
+        {!lockState && <main className='w-[80%] h-dvh p-4 flex flex-col justify-center items-center '>
+          <h1>Contenido bloqueado</h1>
+        </main>
+        }
+        {lockState &&
         <main className='w-[80%] p-4 space-y-8 overflow-auto bg-linear-to-r'>
           {Object.entries(clients)
             .filter(
@@ -163,6 +170,7 @@ export default function App() {
               />
             ))}
         </main>
+      }
       </div>
     </LocalizationProvider>
   );

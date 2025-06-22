@@ -12,7 +12,8 @@ function DesbloqueoModal({ onClose }) {
 
   const [contraIncorrecta, setContraIncorrecta] = useState(false);
 
-  const handleSubmit = () => {
+  const handleSubmit = (e) => {
+    e.preventDefault();
     if (input !== lockContra){
       setContraIncorrecta(true);
       bloquear();
@@ -29,7 +30,7 @@ function DesbloqueoModal({ onClose }) {
       background: "rgba(0,0,0,0.5)", display: "flex",
       justifyContent: "center", alignItems: "center"
     }}>
-      <div style={{ background: "#fff", padding: "20px", borderRadius: "8px" }}>
+      <form onSubmit={handleSubmit} style={{ background: "#fff", padding: "20px", borderRadius: "8px" }}>
         <TextField error={contraIncorrecta} id="outlined-basic" label="Contraseña" variant="outlined"
           type="password"
           value={input}
@@ -37,9 +38,9 @@ function DesbloqueoModal({ onClose }) {
           onChange={(e) => setInput(e.target.value)}
         />
         <br /><br />
-        <Button onClick={handleSubmit} variant="contained">Ingresar</Button>
+        <Button type="submit"  variant="contained">Ingresar</Button>
         <Button onClick={onClose} style={{ marginLeft: "10px" }} variant="outlined">Cancelar</Button>
-      </div>
+      </form>
     </div>
   );
 }

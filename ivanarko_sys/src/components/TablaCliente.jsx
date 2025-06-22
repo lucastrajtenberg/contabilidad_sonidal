@@ -204,12 +204,6 @@ export default function TablaCliente({
           )}
         </tbody>
       </table>
-      <pre>{JSON.stringify(cantidades, null, 2)}</pre>
-      <pre>sala: {JSON.stringify(selectedSala, null, 2)}</pre>
-      <pre>
-        fecha: {JSON.stringify(dayjs(fecha).format('DD/MM/YY'), null, 2)}
-      </pre>
-      <pre>nombre: {clienteName}</pre>
     </div>
   );
 }
