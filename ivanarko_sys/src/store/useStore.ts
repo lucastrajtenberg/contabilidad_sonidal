@@ -68,6 +68,7 @@ const useStore = create(set => ({
   setClientCantidades: (clientId, categoria, nombre, delta) =>
     set(state => {
       const client = state.clients[clientId] || {};
+      console.log("SETTER CANTIDADES", categoria, nombre, delta)
       const newQuantity = Math.max(
         0,
         (client[categoria]?.[nombre] || 0) + delta
@@ -96,7 +97,7 @@ const useStore = create(set => ({
     set(state => ({ clienteName: [...state.clienteName, name] })),
   ensayos: [],
   setGlobalEnsayos: (clientId, ensayo) => {
-    console.log(clientId, ensayo);
+    console.log("GLOBAL ENSAYOS", clientId, ensayo);
     set(state => ({
       clients: state.clients.map(client =>
         client.id === clientId ? { ...client, ensayo } : client

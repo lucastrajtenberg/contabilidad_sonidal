@@ -28,7 +28,6 @@ export default function MinitablaVentas({
   if (categoria === "ensayo") {
     const ensayoActual =
       data.find((e) => e.nombre.toLowerCase() === selectedEnsayo) || data[0];
-
     return (
       <table className="mini-tabla">
         <tbody>

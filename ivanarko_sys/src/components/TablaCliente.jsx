@@ -47,6 +47,7 @@ export default function TablaCliente({
 
   const handleEnsayoChange = e => {
     const nuevoEnsayo = e.target.value;
+    console.log(nuevoEnsayo);
     setClientCantidades(clienteId, 'ensayo', nuevoEnsayo, 0);
     setCantidades(prev => ({
       ...prev,
@@ -70,6 +71,7 @@ export default function TablaCliente({
 
   const changeQty = (categoria, nombre, delta) => {
     let nuevoEstado;
+    console.log("DATITOS DEL CLIENTE:", clienteId, categoria, nombre, delta);
     setClientCantidades(clienteId, categoria, nombre, delta);
 
     setCantidades(prev => {
@@ -162,7 +164,7 @@ export default function TablaCliente({
             data={data}
             cantidades={cantidades}
             changeQty={changeQty} //cambia cantidades dentro de TablaCliente, respecto de lo clickeado en las flechitas de MinitablaVentas
-            selectedEnsayo={currentClient['ensayo']}
+            selectedEnsayo={selectedEnsayo}  
             onEnsayoChange={handleEnsayoChange}
           />
         ) : nombre === 'ensayo' ? ( //si la categoria esta colapsada y el nombre es ensayo
