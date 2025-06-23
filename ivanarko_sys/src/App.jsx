@@ -20,18 +20,74 @@ export default function App() {
     clienteFecha,
     setClienteFecha,
     createNewClient,
-    removeClient
+    removeClient,
+    setClientsLoadedSuccessfully,
+    clientsLoaded,
+    loadClientsFromGithub
   } = useStore();
 
   const saveClients = async () => {
+    console.log(clients)
+    for (const client of Object.values(clients)) {
+      if (client.nombre.length === 0)
+        throw new Error('Un cliente no tiene nombre asignado');
+    }
 
+    // sha clientes.json https://api.github.com/repos/lucastrajtenberg/contabilidad_sonidal/contents/clientes
+    const TOKEN = import.meta.env.VITE_GITHUB_TOKEN;
+    const ENDPOINT = "https://api.github.com/repos/lucastrajtenberg/contabilidad_sonidal/contents/clientes/clientes.json";
+    
+    // sacamos el sha de clientes.json
+    const response = await fetch(ENDPOINT);
+    const data = await response.json();
+    const sha = data.sha;
+    
+    // preparamos todo el bicho
+    const jsonString = JSON.stringify(clients, null, 2);
+    const base64 = btoa(unescape(encodeURIComponent(jsonString)));
+    
+    // preparamos el payload
+    const payload = {
+      message: "Actualizando automatica clientes.json",
+      content: base64,
+      sha: sha
+    };
+
+    try {
+      const putResponse = await fetch(ENDPOINT, {
+        method: 'PUT',
+        headers: {
+          'Authorization': `token ${TOKEN}`,
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(payload)
+      });
+      console.log(putResponse.status);
+      console.log("Guardado correctamente", putResponse);
+    } catch (e) {
+      console.error('Error al guardar los clientes', e);
+      return;
+    }
   }
 
   useEffect(() => {
     try {
+      async function saveGithubClients() {
+        await saveClients();
+        return
+      }
+      async function setInitialClients() {
+        await loadClientsFromGithub();
+        return
+      }
+
+      if (clientsLoaded === false) {
+        setInitialClients();
+        setClientsLoadedSuccessfully();
+      }
       if (Object.values(clients).length >= 0) {
-        console.log('GUARDANDO');
-        localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(clients));
+        // localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(clients));
+        saveGithubClients();
       }
     } catch (e) {
       console.error('Error saving clients to localStorage', e);

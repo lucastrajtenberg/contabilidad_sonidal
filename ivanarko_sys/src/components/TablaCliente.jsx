@@ -35,6 +35,8 @@ export default function TablaCliente({
 
   const currentClient = clients[clienteId];
   console.log('CURRENT NENE', currentClient);
+  const currentName = currentClient.nombre;
+  const [draftName, setDraftName] = useState(currentName);
 
   const [selectedEnsayo, setSelectedEnsayo] = useState('ensayo');
   const [selectedSala, setSelectedSala] = useState(currentClient.sala || '1');
@@ -117,10 +119,21 @@ export default function TablaCliente({
     onTotalChange && onTotalChange(totalGeneral);
   }, [cantidades, selectedEnsayo]);
 
+  useEffect(() => {
+    setDraftName(currentName);
+  }, [currentName]);
+
+  // Sólo actualizamos el store al hacer blur
+  const handleBlur = () => {
+    if (draftName !== currentName) {
+      setClientNombre(clienteId, draftName);
+      onNameChange?.(draftName);
+    }
+  };
+  
   // Efecto para enviar nombre al padre
   const handleNameInput = e => {
     const val = e.target.value;
-    setClientNombre(clienteId, val);
     setClienteName(val);
     onNameChange && onNameChange(val);
   };
@@ -135,8 +148,9 @@ export default function TablaCliente({
             type='text'
             placeholder='Nombre'
             className='input-nombre'
-            value={currentClient.nombre}
-            onChange={handleNameInput}
+            value={draftName}
+            onChange={e => setDraftName(e.target.value)}  // sólo local
+            onBlur={handleBlur}
           />
         </form>
         <DropdownSala value={selectedSala} onChange={handleSalaChange} />
