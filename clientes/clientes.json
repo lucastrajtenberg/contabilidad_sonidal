@@ -1,0 +1,31 @@
+{
+  "1750119213963": {
+    "nombre": "Josecitos Band",
+    "fecha": "2025-06-17T00:02:14.018Z",
+    "birras": {
+      "Miller": 1,
+      "Amstel": 1,
+      "Imperial IPA": 1,
+      "Heineken": 4
+    },
+    "alquiler": {
+      "Instrumento": 1,
+      "Crash": 1,
+      "Pedal": 1
+    },
+    "sala": "2"
+  },
+  "1750634690489": {
+    "nombre": "",
+    "fecha": "2025-06-20T23:23:54.022Z"
+  },
+  "1750634762881": {
+    "nombre": "",
+    "fecha": "2025-06-19T23:23:54.022Z",
+    "sala": "1"
+  },
+  "1750635732750": {
+    "nombre": "",
+    "fecha": "2025-06-22T23:40:56.146Z"
+  }
+}
